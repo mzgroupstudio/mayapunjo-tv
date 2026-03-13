@@ -2,8 +2,9 @@ name: Auto Update Playlist
 
 on:
   schedule:
-    - cron: '0 * * * *' # প্রতি ১ ঘণ্টা পর পর চলবে
-  workflow_dispatch: # ম্যানুয়ালি চালানোর জন্য
+    # প্রতি ৩০ মিনিট পর পর চালানোর জন্য নিচের লাইনটি ব্যবহার করুন
+    - cron: '*/30 * * * *' 
+  workflow_dispatch: # ম্যানুয়ালি চালানোর জন্য
 
 jobs:
   build:
