@@ -1,36 +1,45 @@
-name: Mayapunjo_Final.m3u
+name: Auto Update Playlist
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # প্রতি ৩০ মিনিট পরপর
-  workflow_dispatch: # হাতে চালানোর অপশন
-
-permissions:
-  contents: write
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.9'
 
       - name: Install dependencies
-        run: pip install requests
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
 
       - name: Run update script
         run: python update_playlist.py
 
       - name: Commit and Push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add Mayapunjo_Final.m3u
-          git commit -m "Auto updated: $(date)" || exit 0
-          git push
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # m3u এবং html ফাইল দুটোই অ্যাড করা হচ্ছে
+          git add Mayapunjo_Final.m3u index.html
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto updated: $(date)"
+            git push
+          fi
           
