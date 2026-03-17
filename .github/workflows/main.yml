@@ -2,14 +2,14 @@ name: Auto Update Playlist
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # প্রতি ৩০ মিনিট পর পর
-  workflow_dispatch: # ম্যানুয়ালি চালানোর জন্য
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # এটি অ্যাকশনকে ফাইল রাইট করার ক্ষমতা দেয়
+      contents: write
     
     steps:
       - name: Checkout repository
@@ -32,12 +32,13 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add Mayapunjo_Final.m3u
           
-          # যদি কোনো পরিবর্তন থাকে তবেই কমিট করবে
+          # m3u এবং html ফাইল দুটোই অ্যাড করা হচ্ছে
+          git add Mayapunjo_Final.m3u index.html
+          
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto updated playlist: $(date)"
+            git commit -m "Auto updated: $(date)"
             git push
           fi
