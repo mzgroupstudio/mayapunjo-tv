@@ -2,18 +2,21 @@ name: Update IPTV Playlist
 
 on:
   schedule:
-    - cron: '*/30 * * * *' # প্রতি ৩০ মিনিট পরপর রান হবে
+    - cron: '*/30 * * * *' # প্রতি ৩০ মিনিট পরপর
   workflow_dispatch: # হাতে চালানোর অপশন
+
+permissions:
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
@@ -27,7 +30,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add playlist.m3u
-          git commit -m "Update playlist with new token" || exit 0
+          git add Mayapunjo_Final.m3u
+          git commit -m "Auto updated: $(date)" || exit 0
           git push
           
