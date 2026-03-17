@@ -2,21 +2,24 @@ name: Auto Update Playlist
 
 on:
   schedule:
-    # প্রতি ৩০ মিনিট পর পর চালানোর জন্য নিচের লাইনটি ব্যবহার করুন
-    - cron: '*/30 * * * *' 
-  workflow_dispatch: # ম্যানুয়ালি চালানোর জন্য
+    # প্রতি ৩০ মিনিট পর পর অটো চলবে
+    - cron: '*/30 * * * *'
+  workflow_dispatch: # আপনি চাইলে বাটন টিপেও চালাতে পারবেন
 
 jobs:
-  build:
+  update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # গিটহাবে ফাইল লেখার পারমিশন নিশ্চিত করা
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.9'
 
       - name: Install dependencies
         run: pip install requests
@@ -26,8 +29,9 @@ jobs:
 
       - name: Commit and Push changes
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
           git add Mayapunjo_Final.m3u
-          git commit -m "Auto updated playlist" || exit 0
-          git push
+          
+          # যদি ফাইলে কোনো পরিবর্তন না থাকে তবে এরর দেবে না
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Playlist updated with new tokens: $(date)" && git push)
