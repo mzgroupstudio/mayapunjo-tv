@@ -1,29 +1,29 @@
 import requests
 
 def fetch_playlist():
-    # আপনার সংগৃহীত সোর্স ইউআরএল
-    url = "http://paceitplaylists.geoclaster.xyz/m3u.php"
+    # ছবির নতুন ইউআরএল (পুরোটা কপি করে এখানে বসাবেন)
+    url = "http://172.19.178.182/playlist/index.php?encryptedData=..." # আপনার ছবির পুরো লিঙ্কটি এখানে দিন
     
-    # আপনার দেওয়া ছবির তথ্য অনুযায়ী হেডার
     headers = {
-        'User-Agent': 'okhttp/4.12.0',
+        'User-Agent': 'Mozila', # ছবিতে যা আছে হুবহু তাই (Mozilla বানানে একটি 'l' কম আছে ছবিতে)
         'Accept-Encoding': 'gzip',
         'Connection': 'Keep-Alive',
-        'Host': 'paceitplaylists.geoclaster.xyz'
+        'Host': '172.19.178.182'
     }
 
     try:
-        response = requests.get(url, headers=headers, timeout=30)
+        # যেহেতু এটি লোকাল আইপি, গিটহাব থেকে এটি কাজ করার সম্ভাবনা কম
+        # যদি এটি কোনো ভিপিএন বা লোকাল নেটওয়ার্কের হয়, তবে এটি আপনার পিসিতে রান করা ভালো
+        response = requests.get(url, headers=headers, timeout=20)
+        
         if response.status_code == 200:
-            # সঠিক ফাইল নামে সেভ করা
             with open("Mayapunjo_Final.m3u", "w", encoding="utf-8") as f:
                 f.write(response.text)
-            print("Playlist updated successfully!")
+            print("Success!")
         else:
-            print(f"Failed! Status code: {response.status_code}")
+            print(f"Failed with status: {response.status_code}")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error connecting: {e}")
 
 if __name__ == "__main__":
     fetch_playlist()
-    
