@@ -1,7 +1,7 @@
 import requests
 import re
 
-# আপনার সোর্স লিঙ্ক
+# আপনার মেইন প্লেলিস্ট লিঙ্ক
 url = "http://paceitplaylists.geoclaster.xyz/m3u.php"
 headers = {
     "User-Agent": "okhttp/4.12.0",
@@ -9,16 +9,18 @@ headers = {
 
 def fetch_and_save():
     try:
+        # ১. প্লেলিস্ট ডাউনলোড করা
         response = requests.get(url, headers=headers, timeout=15)
+        response.raise_for_status()
         content = response.text
         
-        # ১. .m3u ফাইল সেভ করা
+        # ২. Mayapunjo_Final.m3u ফাইল হিসেবে সেভ করা
         with open("Mayapunjo_Final.m3u", "w", encoding="utf-8") as f:
             f.write(content)
-        print("M3U File Updated Successfully")
+        print("M3U File Updated")
 
-        # ২. ফাইল থেকে একটি চ্যানেলের লিঙ্ক খুঁজে বের করা (উদাহরণ: প্রথম .m3u8 লিঙ্কটি)
-        # আপনি চাইলে নির্দিষ্ট কোনো চ্যানেলের নাম দিয়েও ফিল্টার করতে পারেন
+        # ৩. কন্টেন্ট থেকে ভিডিও লিঙ্ক (m3u8 বা proxy) খুঁজে বের করা
+        # এখানে প্রথম লিঙ্কটি নেওয়া হচ্ছে, আপনি চাইলে নির্দিষ্ট নাম দিয়েও ফিল্টার করতে পারেন
         links = re.findall(r'(http[s]?://[^\s]+)', content)
         video_url = ""
         for link in links:
@@ -26,7 +28,7 @@ def fetch_and_save():
                 video_url = link
                 break
 
-        # ৩. HTML প্লেয়ার ফাইল তৈরি করা
+        # ৪. যদি ভিডিও লিঙ্ক পাওয়া যায়, তবে index.html প্লেয়ার তৈরি করা
         if video_url:
             html_content = f"""
 <!DOCTYPE html>
@@ -42,7 +44,7 @@ def fetch_and_save():
     </style>
 </head>
 <body>
-    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{{"autoplay": true, "muted": false}}'>
+    <video id="my-video" class="video-js vjs-big-play-centered" controls autoplay preload="auto" data-setup='{{"fluid": true}}'>
         <source src="{video_url}" type="application/x-mpegURL">
     </video>
     <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
@@ -51,7 +53,9 @@ def fetch_and_save():
 """
             with open("index.html", "w", encoding="utf-8") as f:
                 f.write(html_content)
-            print("Index.html Player Created Successfully")
+            print("index.html (Player) Updated")
+        else:
+            print("No video link found to create player")
 
     except Exception as e:
         print(f"Error: {e}")
