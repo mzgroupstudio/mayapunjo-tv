@@ -1,56 +1,64 @@
-import base64
-import urllib.parse
-import re
 import requests
+import re
 
-# ১. সঠিক হেডার কনফিগারেশন (যাতে লিঙ্কগুলো বন্ধ না হয়)
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Linux; Android 12) ExoPlayerAdapter",
-    "Accept": "*/*",
-    "Connection": "keep-alive"
+# আপনার মেইন প্লেলিস্ট লিঙ্ক
+url = "http://paceitplaylists.geoclaster.xyz/m3u.php"
+headers = {
+    "User-Agent": "okhttp/4.12.0",
 }
 
-def decode_and_verify(proxy_url):
+def fetch_and_save():
     try:
-        # লিঙ্ক থেকে এনকোড করা অংশ আলাদা করা
-        if 'u=' in proxy_url:
-            encoded_part = proxy_url.split('u=')[1]
-            decoded_url = urllib.parse.unquote(encoded_part)
-            
-            # Base64 ডিকোড করা
-            decoded_bytes = base64.b64decode(decoded_url)
-            final_link = decoded_bytes.decode('utf-8')
-            
-            # এখানে আমরা চাইলে সরাসরি লিঙ্কটা রিটার্ন করতে পারি 
-            # অথবা সার্ভার থেকে রিডাইরেক্ট হওয়া নতুন লিঙ্কটা নিতে পারি
-            return final_link
-        return proxy_url
-    except Exception:
-        return proxy_url
-
-def create_vlc_playlist(input_file, output_file):
-    print("--- মায়াপুঞ্জ টিভি: প্লে-লিস্ট তৈরি হচ্ছে ---")
-    
-    with open(input_file, 'r', encoding='utf-8') as f:
-        content = f.read()
-
-    # চ্যানেল নাম, লোগো এবং লিঙ্ক খুঁজে বের করা
-    matches = re.findall(r'(#EXTINF:.*?,(.*?))\n(http.*)', content)
-    
-    with open(output_file, 'w', encoding='utf-8') as f_out:
-        f_out.write("#EXTM3U\n\n")
+        # ১. প্লেলিস্ট ডাউনলোড করা
+        response = requests.get(url, headers=headers, timeout=15)
+        response.raise_for_status()
+        content = response.text
         
-        for info, name, link in matches:
-            channel_name = name.strip()
-            # লিঙ্কটি পরিষ্কার ও ডিকোড করা
-            clean_link = decode_and_verify(link.strip())
-            
-            f_out.write(f"{info}\n")
-            f_out.write(f"{clean_link}\n\n")
-            print(f"যোগ করা হয়েছে: {channel_name}")
+        # ২. Mayapunjo_Final.m3u ফাইল হিসেবে সেভ করা
+        with open("Mayapunjo_Final.m3u", "w", encoding="utf-8") as f:
+            f.write(content)
+        print("M3U File Updated")
 
-    print(f"\nঅভিনন্দন! '{output_file}' ফাইলটি তৈরি হয়েছে।")
-    print("এখন এটি VLC প্লেয়ারে ওপেন করে চেক করুন।")
+        # ৩. কন্টেন্ট থেকে ভিডিও লিঙ্ক (m3u8 বা proxy) খুঁজে বের করা
+        # এখানে প্রথম লিঙ্কটি নেওয়া হচ্ছে, আপনি চাইলে নির্দিষ্ট নাম দিয়েও ফিল্টার করতে পারেন
+        links = re.findall(r'(http[s]?://[^\s]+)', content)
+        video_url = ""
+        for link in links:
+            if ".m3u8" in link or "proxy.php" in link:
+                video_url = link
+                break
 
-# আপনার ফাইলের নাম 'Iptv.txt' থাকলে এটি রান করুন
-create_vlc_playlist('Iptv.txt', 'Mayapunjo_Final.m3u')
+        # ৪. যদি ভিডিও লিঙ্ক পাওয়া যায়, তবে index.html প্লেয়ার তৈরি করা
+        if video_url:
+            html_content = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayapunjo TV Player</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <style>
+        body, html {{ margin: 0; padding: 0; width: 100%; height: 100%; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; }}
+        .video-js {{ width: 100% !important; height: 100% !important; }}
+    </style>
+</head>
+<body>
+    <video id="my-video" class="video-js vjs-big-play-centered" controls autoplay preload="auto" data-setup='{{"fluid": true}}'>
+        <source src="{video_url}" type="application/x-mpegURL">
+    </video>
+    <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+</body>
+</html>
+"""
+            with open("index.html", "w", encoding="utf-8") as f:
+                f.write(html_content)
+            print("index.html (Player) Updated")
+        else:
+            print("No video link found to create player")
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    fetch_and_save()
