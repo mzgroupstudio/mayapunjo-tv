@@ -1,12 +1,12 @@
-name: Update Mayapunjo Playlist
+name: Mayapunjo_Tv_Playlist
 
 on:
   schedule:
     - cron: '*/30 * * * *' # প্রতি ৩০ মিনিট পরপর অটোমেটিক চলবে
-  workflow_dispatch: # এটি আপনাকে ম্যানুয়ালি 'Run workflow' করার বাটন দেবে
+  workflow_dispatch: # হাতে চালানোর বাটন
 
 permissions:
-  contents: write # ফাইল সেভ করার জন্য এই পারমিশনটি জরুরি
+  contents: write
 
 jobs:
   build:
@@ -31,6 +31,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add Mayapunjo_Final.m3u
-          # তারিখ ও সময়সহ সেভ মেসেজ দেখাবে
-          git commit -m "Updated Mayapunjo_Final.m3u at $(date)" || echo "No changes to commit"
+          git commit -m "Mayapunjo_Final.m3u Auto Updated: $(date)" || echo "No changes to commit"
           git push
