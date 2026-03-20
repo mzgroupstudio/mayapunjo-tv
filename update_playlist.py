@@ -1,6 +1,6 @@
 import requests
 
-url = "https://go.iptvpulse.top/34j8.m3u"
+url = "https://go.iptvpulse.top/tshs.m3u"
 # এখানে আমরা একটি সাধারণ আইপিটিভি প্লেয়ারের পরিচয় দিচ্ছি
 headers = {
     'User-Agent': 'VLC/3.0.18 LibVLC/3.0.18'
