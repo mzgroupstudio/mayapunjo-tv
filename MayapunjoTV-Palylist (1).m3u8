@@ -1,0 +1,138 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/DzShKPXT/download.png", ATN NEWS
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05u/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/9MkyCNQM/atn-bangla-logo-png-seeklogo-314509.png", ATN BANGLA
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a06b/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/Qx6cMctP/Maasranga-Television-Logo.jpg", MAASRANGA HD
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05q/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/CM3NkWMb/images.jpg", SOMOY TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05l/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/D0dj0TJs/download.jpg", NEWS 24
+#EXTVCOPT:network-caching=5000
+http://198.195.239.50:8095/News24/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/Jn7tv337/download-(1).png", NAGORIK
+#EXTVCOPT:network-caching=5000
+http://198.195.239.50:8095/nagorik/tracks-v1a1/mono.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/MTjrkL7Z/Gazi-TV.png", GAZI TV
+#EXTVCOPT:network-caching=5000
+http://tvn1.chowdhury-shaheb.com/gazitv/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/L6hgHMqb/R-TV.jpg", R TV
+#EXTVCOPT:network-caching=5000
+http://tvn3.chowdhury-shaheb.com/rtv/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/8CCLrrc9/BOJOY-TV.jpg", BIJOY TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a066/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/4dsk5skN/BOISHAKHI-TV.png", BOISHAKHI TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a067/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/nzjRBWrP/CHANNEL-NINE.png", CHANNEL NINE
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05j/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/qM39KzSm/MY-TV.png", MY TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05z/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/C1ZV6JrS/N-TV.png", N TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a06g/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/J0WdcQ9K/JAMUNA-TV.jpg", JAMUNA TV
+#EXTVCOPT:network-caching=5000
+http://sm-monirul.top/RoarZone/play.php?id=ZWRnZTMvamFtdW5hLXR2&e=.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/0ymMhd3X/MOHONA-TV.jpg", MOHONA TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05t/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/RFGSJGpM/DURONTO-TV.png", DURONTO TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05k/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/2jskbq27/CHANNEL-24.jpg", CHANNEL 24
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05n/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/43qMLcKt/CHANNEL-I.png", CHANNEL I
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a06e/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/Twxj32BT/CHANNEL-S.jpg", CHANNEL S
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a060/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/TPfhyy2N/DBC-NEWS.jpg", DBC NEWS
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a06h/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/JzqH532d/DEEPTO-TV.jpg", DEEPTO TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05r/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/SRfmbd86/DESH-TV.jpg", DESH TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05s/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/CLrWB9Fs/EKHON-TV.jpg", EKHON TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a09k/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/6pdfJG1p/GLOBAL-TV.png", GLOBAL TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05o/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/5yBwzXQm/71-TV.jpg", 71 TV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a06f/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/zGVyZLDL/ETV.png", ETV
+#EXTVCOPT:network-caching=5000
+http://103.229.254.25:7001/play/a05x/index.m3u8
+
+#EXTINF:-1 tvg-logo="https://i.postimg.cc/yxnYZKjQ/DISNEP-CHANNEL.png", DISNEP CHANNEL
+#EXTVCOPT:network-caching=5000
+http://103.182.170.32:8888/play/a04g
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
